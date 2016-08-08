@@ -14,6 +14,6 @@ galaxy_info:
     - trusty
     - xenial
   galaxy_tags:
-    - sensu_client
+    - sensu
     - monitor
 dependencies: []
