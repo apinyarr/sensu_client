@@ -1,0 +1,27 @@
+- name: Login to private Docker Registry
+  become: false
+  command: |
+    docker login --username {{ install_docker_registry_username }}
+    --password {{ install_docker_registry_password }}
+    --email {{ install_docker_registry_email }}
+    {{ install_docker_registry_url }}
+  when: install_docker_private_login
+  tags:
+    - install-sensu-client-docker-registry-private-login
+
+- name: Ensures {{ sensu_client_conf_path }} dir exists
+  file:
+    path: "{{ sensu_client_conf_path }}/conf.d"
+    state: directory
+
+- name: Prepare Sensu Client configuration
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: "{{ sensu_client_sensu_conf_json_path }}/config.json.j2", dest: "{{ sensu_client_conf_path }}/config.json" }
+    - { src: "{{ sensu_client_sensu_conf_json_path }}/client.json.j2", dest: "{{ sensu_client_conf_path }}/conf.d/client.json" }
+  notify: Restart Sensu Client container
+
+  tags:
+    - update-config-sensu-client
