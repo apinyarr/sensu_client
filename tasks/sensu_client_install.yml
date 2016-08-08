@@ -1,16 +1,14 @@
   - name: Run Sensu Client container
-    docker:
+    docker_container:
       name: "{{ sensu_client_container_prefix }}client"
       hostname: "{{ sensu_client_container_prefix }}client"
       image: "{{ sensu_client_image_name }}"
       state: started
       pull: "{{ sensu_client_pull_new_docker_images }}"
-      ports:
+      exposed_ports:
       - "3030:3030"
       volumes:
       - "{{ sensu_client_conf_path }}/config.json:/etc/sensu/config.json"
       - "{{ sensu_client_conf_path }}/conf.d/client.json:/etc/sensu/conf.d/client.json"
       - "/:/rootfs:ro"
       - "/var/run/docker.sock:/var/run/docker.sock"
-  tags:
-    - run-sensu-api
