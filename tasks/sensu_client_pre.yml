@@ -1,11 +1,11 @@
 - name: Login to private Docker Registry
   become: false
   command: |
-    docker login --username {{ install_docker_registry_username }}
-    --password {{ install_docker_registry_password }}
-    --email {{ install_docker_registry_email }}
-    {{ install_docker_registry_url }}
-  when: install_docker_private_login
+    docker login --username {{ sensu_client_install_docker_registry_username }}
+    --password {{ sensu_client_install_docker_registry_password }}
+    --email {{ sensu_client_install_docker_registry_email }}
+    {{ sensu_client_install_docker_registry_url }}
+  when: sensu_client_install_docker_private_login
   tags:
     - install-sensu-client-docker-registry-private-login
 

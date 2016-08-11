@@ -1,9 +1,8 @@
 ---
 # defaults file for sensu_client/
 sensu_client_image_name: sstarcher/sensu
-sensu_client_container_prefix: sensu-
-sensu_client_pull_new_docker_images: missing
 sensu_client_conf_path: "{{ ansible_env.HOME }}/etc/sensu/client"
+sensu_client_target_path: /etc/sensu
 sensu_client_rabbitmq_host: 172.17.0.1
 sensu_client_rabbitmq_vhost: /sensu
 sensu_client_rabbitmq_username: sensu
@@ -12,10 +11,11 @@ sensu_client_name: sensu-client
 sensu_client_subscriptions_joined: "\"{{ '\", \"'.join(sensu_client_subscriptions)}}\""
 sensu_client_subscriptions: ["test"]
 
-install_docker_private_login: false
-#install_docker_registry_username: registry
-#install_docker_registry_password: CHANGEDOCKERPASSWORDHERE
-#install_docker_registry_email: docker@example.com
-#install_docker_registry_url: registry.example.com
+sensu_client_install_docker_private_login: false
+# Uncomment these lines if sensu_client_install_docker_private_login is true
+# sensu_client_install_docker_registry_username: registry
+# sensu_client_install_docker_registry_password: CHANGEDOCKERPASSWORDHERE
+# sensu_client_install_docker_registry_email: docker@example.com
+# sensu_client_install_docker_registry_url: registry.example.com
 
 sensu_client_sensu_conf_json_path: "{{ playbook_dir }}/files/groups/{{ item }}/sensu_client"
